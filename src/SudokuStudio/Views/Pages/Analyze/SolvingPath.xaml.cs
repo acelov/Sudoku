@@ -53,5 +53,6 @@ public sealed partial class SolvingPath : Page, IAnalyzerTab
 		BasePage.SudokuPane.Puzzle = stepGrid;
 		BasePage.CurrentViewIndex = -1;
 		BasePage.VisualUnit = step;
+		// ------lhz------
 	}
 }

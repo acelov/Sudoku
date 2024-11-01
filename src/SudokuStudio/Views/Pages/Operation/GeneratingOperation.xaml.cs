@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace SudokuStudio.Views.Pages.Operation;
 
 /// <summary>
@@ -130,7 +132,23 @@ public sealed partial class GeneratingOperation : Page, IOperationProviderPage
 		void triggerEvents(ref Grid grid, Analyzer analyzer)
 		{
 			gridStateChanger?.Invoke(ref grid, analyzer);
-			gridTextConsumer?.Invoke(grid.ToString("#"));
+			var solution = GridSolvingExtensions.GetSolutionGrid(in grid);
+			// ------lhz------
+			var analysisResult = analyzer.Analyze(in grid);
+			var stepList = new List<Step>();
+			var stepStrs = new List<string>();
+			for (var i = 0; i < analysisResult.StepsSpan.Length; i++)
+			{
+				//stepStrs.Add(analysisResult.StepsSpan[i].ToString(App.CurrentCulture));
+				stepStrs.Add(analysisResult.StepsSpan[i].ConclusionText);
+			}
+			var setpsJson = JsonConvert.SerializeObject(stepList);
+			var setpStrJson = JsonConvert.SerializeObject(stepStrs);
+			var analysisResultStr = analysisResult.ToString();
+			var setps = analysisResult.StepsSpan.ToString(); 
+			var text = grid.ToString("0") + "_" + solution.ToString("!0") + "_" + setpStrJson;
+			// ------lhz------
+			gridTextConsumer?.Invoke(text);
 		}
 
 		Grid taskEntry()

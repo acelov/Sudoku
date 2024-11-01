@@ -858,6 +858,7 @@ public sealed partial class AnalyzePage : Page
 				{
 					UpdateAnalysisResult(analysisResult);
 					AnalysisResultCache = analysisResult;
+					// ------lhz------
 					break;
 				}
 				case
