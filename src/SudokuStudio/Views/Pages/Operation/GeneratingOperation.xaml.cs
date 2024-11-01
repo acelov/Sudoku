@@ -1,3 +1,4 @@
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace SudokuStudio.Views.Pages.Operation;
@@ -135,18 +136,22 @@ public sealed partial class GeneratingOperation : Page, IOperationProviderPage
 			var solution = GridSolvingExtensions.GetSolutionGrid(in grid);
 			// ------lhz------
 			var analysisResult = analyzer.Analyze(in grid);
-			var stepList = new List<Step>();
-			var stepStrs = new List<string>();
+			var stepViews = new List<List<View>>();
 			for (var i = 0; i < analysisResult.StepsSpan.Length; i++)
 			{
-				//stepStrs.Add(analysisResult.StepsSpan[i].ToString(App.CurrentCulture));
-				stepStrs.Add(analysisResult.StepsSpan[i].ConclusionText);
+				var views = analysisResult.StepsSpan[i].Views;
+				if(views != null)
+				{
+					var list = new List<View>();
+					foreach (var item in views)
+					{
+						list.Add(item);
+					}
+					stepViews.Add(list);
+				}
 			}
-			var setpsJson = JsonConvert.SerializeObject(stepList);
-			var setpStrJson = JsonConvert.SerializeObject(stepStrs);
-			var analysisResultStr = analysisResult.ToString();
-			var setps = analysisResult.StepsSpan.ToString(); 
-			var text = grid.ToString("0") + "_" + solution.ToString("!0") + "_" + setpStrJson;
+			var stepViewsJson = JsonConvert.SerializeObject(stepViews);
+			var text = grid.ToString("0") + "_" + solution.ToString("!0") + "_" + stepViewsJson;
 			// ------lhz------
 			gridTextConsumer?.Invoke(text);
 		}
