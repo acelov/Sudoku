@@ -14512,6 +14512,96 @@
             Indicates the move direction is to the previous side.
             </summary>
         </member>
+        <member name="F:SudokuStudio.Views.Data.AnalyzeStep.N">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="F:SudokuStudio.Views.Data.AnalyzeStep.DS">
+            <summary>
+            Default Score
+            </summary>
+        </member>
+        <member name="F:SudokuStudio.Views.Data.AnalyzeStep.S">
+            <summary>
+            Score
+            </summary>
+        </member>
+        <member name="F:SudokuStudio.Views.Data.AnalyzeStep.RS">
+            <summary>
+            Results
+            </summary>
+        </member>
+        <member name="F:SudokuStudio.Views.Data.AnalyzeStep.NS">
+            <summary>
+            Nodes
+            </summary>
+        </member>
+        <member name="F:SudokuStudio.Views.Data.Node.T">
+            <summary>
+            NodeType
+            </summary>
+        </member>
+        <member name="F:SudokuStudio.Views.Data.Node.K">
+            <summary>
+            Color Kind
+            </summary>
+        </member>
+        <member name="F:SudokuStudio.Views.Data.Node.C">
+            <summary>
+            Cell
+            </summary>
+        </member>
+        <member name="F:SudokuStudio.Views.Data.Node.CA">
+            <summary>
+            Candidate
+            </summary>
+        </member>
+        <member name="F:SudokuStudio.Views.Data.Node.H">
+            <summary>
+            House
+            </summary>
+        </member>
+        <member name="F:SudokuStudio.Views.Data.Node.U">
+            <summary>
+            UnknownValueChar
+            </summary>
+        </member>
+        <member name="F:SudokuStudio.Views.Data.Node.D">
+            <summary>
+            DigitsMask
+            </summary>
+        </member>
+        <member name="F:SudokuStudio.Views.Data.ResultType.Assignment">
+            <summary>
+            表示分析结论是一个填入单元格的值
+            </summary>
+        </member>
+        <member name="F:SudokuStudio.Views.Data.ResultType.Elimination">
+            <summary>
+            表示分析是候选数字从单元格中移除
+            </summary>
+        </member>
+        <member name="P:SudokuStudio.Views.Data.Result.T">
+            <summary>
+            分析结果类型
+            </summary>
+        </member>
+        <member name="P:SudokuStudio.Views.Data.Result.V">
+            <summary>
+            分析结果的值
+            </summary>
+        </member>
+        <member name="F:SudokuStudio.Views.Data.Result.C">
+            <summary>
+            单元格的下标 Value / 9
+            </summary>
+        </member>
+        <member name="F:SudokuStudio.Views.Data.Result.D">
+            <summary>
+            标注数字的下标 Value % 9
+            </summary>
+        </member>
         <member name="T:SudokuStudio.Views.Pages.AnalyzePage">
             <summary>
             Defines a new page that stores a set of controls to analyze a sudoku grid.

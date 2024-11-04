@@ -1,5 +1,8 @@
+using System;
 using System.Linq;
 using Newtonsoft.Json;
+using Sudoku.Drawing;
+using SudokuStudio.Views.Data;
 
 namespace SudokuStudio.Views.Pages.Operation;
 
@@ -136,22 +139,40 @@ public sealed partial class GeneratingOperation : Page, IOperationProviderPage
 			var solution = GridSolvingExtensions.GetSolutionGrid(in grid);
 			// ------lhz------
 			var analysisResult = analyzer.Analyze(in grid);
-			var stepViews = new List<List<View>>();
+			var analyzeSteps = new List<AnalyzeStep>();
+
 			for (var i = 0; i < analysisResult.StepsSpan.Length; i++)
 			{
-				var views = analysisResult.StepsSpan[i].Views;
-				if(views != null)
+				var step = analysisResult.StepsSpan[i];
+
+				var analyzeStep = new AnalyzeStep();
+				analyzeSteps.Add(analyzeStep);
+
+				analyzeStep.N = step.EnglishName;
+				analyzeStep.DS = step.BaseDifficulty;
+				analyzeStep.S = step.Difficulty;
+				foreach (var (t, c, d) in step.Conclusions)
 				{
-					var list = new List<View>();
-					foreach (var item in views)
+					analyzeStep.RS.Add(new Result(t, c, d));
+				}
+
+				var views = step.Views;
+				if (views != null)
+				{
+					foreach (var viewNodes in views)
 					{
-						list.Add(item);
+						var nodes = new List<string>();
+						analyzeStep.NS.Add(nodes);
+						foreach (var viewNode in viewNodes)
+						{
+							var jsonString = System.Text.Json.JsonSerializer.Serialize(viewNode);
+							nodes.Add(jsonString);
+						}
 					}
-					stepViews.Add(list);
 				}
 			}
-			var stepViewsJson = JsonConvert.SerializeObject(stepViews);
-			var text = grid.ToString("0") + "_" + solution.ToString("!0") + "_" + stepViewsJson;
+			var stepsJson = JsonConvert.SerializeObject(analyzeSteps);
+			var text = grid.ToString("0") + "_" + solution.ToString("!0") + "_" + stepsJson;
 			// ------lhz------
 			gridTextConsumer?.Invoke(text);
 		}
