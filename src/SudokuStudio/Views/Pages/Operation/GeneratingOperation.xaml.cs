@@ -166,7 +166,7 @@ public sealed partial class GeneratingOperation : Page, IOperationProviderPage
 						foreach (var viewNode in viewNodes)
 						{
 							var jsonString = System.Text.Json.JsonSerializer.Serialize(viewNode);
-							nodes.Add(jsonString);
+							nodes.Add(jsonString.Replace("$typeid", "ID"));
 						}
 					}
 				}
